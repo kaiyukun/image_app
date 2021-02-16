@@ -1,0 +1,32 @@
+<%= form_with model:@post do |f| %>
+    <%= f.file_field :image, id:"pac-input"%>  
+    <div id="image"></div>
+    <%= f.submit %>
+<% end %>
+
+<style>
+    /* 追加箇所 */
+    #image{
+        background-color: rgba(241, 230, 220, 0.661);
+        height: 300px;
+        width: 400px; 
+    }
+    /* ここまで */
+    img{
+        height: 300px;
+        width: 400px;
+    }
+</style>
+
+<script>
+    let image = document.getElementById("pac-input");
+    image.addEventListener("change", function(evt){
+        let file = evt.target.files;
+        let reader = new FileReader();
+        reader.readAsDataURL(file[0]);
+        reader.onload = function(){
+            let dataUrl = reader.result;
+            document.getElementById("image").innerHTML = "<img src='" + dataUrl + "'>";
+        }
+    },false);
+</script>
